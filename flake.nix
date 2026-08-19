@@ -1,0 +1,90 @@
+{
+  description = "make-subset-font-css";
+
+  inputs = {
+    nixpkgs-linux.url    = "nixpkgs/nixos-25.11";
+    nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
+    flake-utils.url      = "github:numtide/flake-utils";
+    no-markup-markup     = {
+      url = "github:no-markup-markup/nmm";
+      inputs.nixpkgs-linux.follows    = "nixpkgs-linux";
+      inputs.nixpkgs-darwin.follows   = "nixpkgs-darwin";
+      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    };
+  };
+  outputs = {
+    self, nixpkgs-linux, nixpkgs-darwin, nixpkgs-unstable, flake-utils, no-markup-markup
+  }:
+    let
+      linux-systems  = [
+        # TODO "aarch64-linux"
+        "x86_64-linux"
+      ];
+      darwin-systems = [
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      ## windows-systems = [
+      ##   # TODO "x86_64-windows"
+      ## ];
+      systems = linux-systems ++ darwin-systems; ## TODO ++ windows-systems;
+      version = "0";
+    in
+      flake-utils.lib.eachSystem systems (system:
+        let
+          nixpkgs      = (
+            if      builtins.elem system linux-systems  then
+              nixpkgs-linux
+            else if builtins.elem system darwin-systems then
+              nixpkgs-darwin
+            else
+              nixpkgs-unstable
+          );
+          pkgs          = nixpkgs.legacyPackages.${system};
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          pkgs_common   = is-dev-shell: [
+            no-markup-markup.packages.${system}.default
+            pkgs.julia-mono
+            pkgs.bash
+            pkgs.gnumake
+            pkgs.python312Packages.fonttools
+            pkgs.coreutils
+            pkgs.gnused
+          ];
+        in {
+          devShells.default = pkgs.mkShell {
+            buildInputs = (
+              (pkgs_common true)
+            );
+            shellHook = ''
+              mkdir -p tests/input/JuliaMono
+              cp -f \
+                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-Light.ttf \
+                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-LightItalic.ttf \
+                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-SemiBold.ttf \
+                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-SemiBoldItalic.ttf \
+                tests/input/JuliaMono/
+            '';
+          };
+          packages.default = pkgs.stdenv.mkDerivation {
+            name        = "make-subset-font-css-${version}";
+            buildInputs = (
+              (pkgs_common false)
+             );
+            src          = ./.;
+            buildPhase   = ''
+              make bin/make-subset-font-css
+            '';
+            installPhase = ''
+              mkdir -p $out/bin
+              cp bin/* $out/bin/
+            '';
+          };
+          apps.default = {
+            type    = "app";
+            program = "${self.packages.${system}.default}/bin/make-subset-font-css";
+          };
+        }
+      );
+}

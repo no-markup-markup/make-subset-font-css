@@ -1,0 +1,29 @@
+@font-face {
+  font-family:JuliaMono;
+  src:url('JuliaMono/JuliaMono-Light.ttf');
+  font-weight:normal;
+  font-style:normal;
+}
+
+@font-face {
+  font-family:JuliaMono;
+  src:url('JuliaMono/JuliaMono-SemiBold.ttf');
+  font-weight:bold;
+  font-style:normal;
+}
+
+@font-face {
+  font-family:JuliaMono;
+  src:url('JuliaMono/JuliaMono-LightItalic.ttf');
+  font-weight:normal;
+  font-style:italic;
+}
+
+@font-face {
+  font-family:JuliaMono;
+  src:url('JuliaMono/JuliaMono-SemiBoldItalic.ttf');
+  font-weight:bold;
+  font-style:italic;
+}
+
+

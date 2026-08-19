@@ -1,0 +1,32 @@
+html {
+  font-family:JuliaMono;
+}
+
+em {
+  text-decoration:underline;
+}
+
+.authors {
+  margin-top:2rem;
+  font-size:medium;
+
+}
+
+
+@media print {
+
+  .abstract_hdr {
+    font-size:medium;
+  }
+
+  .authors {
+    font-size:small;
+    margin-top:2rem;
+  }
+
+html {
+  line-height:200%;
+}
+
+
+}

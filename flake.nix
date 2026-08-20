@@ -58,13 +58,9 @@
               (pkgs_common true)
             );
             shellHook = ''
-              mkdir -p tests/input/JuliaMono
-              cp -f \
-                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-Light.ttf \
-                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-LightItalic.ttf \
-                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-SemiBold.ttf \
-                ${pkgs.julia-mono}/share/fonts/truetype/JuliaMono-SemiBoldItalic.ttf \
-                tests/input/JuliaMono/
+              cd tests/input
+              ln -s ${pkgs.julia-mono}/share/fonts/truetype JuliaMono
+              cd -
             '';
           };
           packages.default = pkgs.stdenv.mkDerivation {

@@ -8,9 +8,9 @@
     flake-utils.url      = "github:numtide/flake-utils";
     no-markup-markup     = {
       url = "github:no-markup-markup/nmm";
-      inputs.nixpkgs-linux.follows    = "nixpkgs-linux";
-      inputs.nixpkgs-darwin.follows   = "nixpkgs-darwin";
-      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+#      inputs.nixpkgs-linux.follows    = "nixpkgs-linux";
+#      inputs.nixpkgs-darwin.follows   = "nixpkgs-darwin";
+#      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     };
   };
   outputs = {

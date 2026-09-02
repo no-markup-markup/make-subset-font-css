@@ -6,12 +6,7 @@
     nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url      = "github:numtide/flake-utils";
-    no-markup-markup     = {
-      url = "github:no-markup-markup/nmm";
-#      inputs.nixpkgs-linux.follows    = "nixpkgs-linux";
-#      inputs.nixpkgs-darwin.follows   = "nixpkgs-darwin";
-#      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
-    };
+    no-markup-markup.url = "github:no-markup-markup/nmm";
   };
   outputs = {
     self, nixpkgs-linux, nixpkgs-darwin, nixpkgs-unstable, flake-utils, no-markup-markup
@@ -65,9 +60,13 @@
           };
           packages.default = pkgs.stdenv.mkDerivation {
             name        = "make-subset-font-css-${version}";
-            buildInputs = (
-              (pkgs_common false)
-             );
+            buildInputs = [
+              pkgs.bash
+              pkgs.gnumake
+              pkgs.python312Packages.fonttools
+              pkgs.coreutils
+              pkgs.gnused
+             ];
             src          = ./.;
             buildPhase   = ''
               make bin/make-subset-font-css

@@ -6,7 +6,7 @@
     nixpkgs-darwin.url   = "nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url      = "github:numtide/flake-utils";
-    no-markup-markup.url = "github:no-markup-markup/nmm";
+    no-markup-markup.url = "github:no-markup-markup/nmm?ref=dev";
   };
   outputs = {
     self, nixpkgs-linux, nixpkgs-darwin, nixpkgs-unstable, flake-utils, no-markup-markup

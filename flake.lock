@@ -388,11 +388,11 @@
         "pins": "pins"
       },
       "locked": {
-        "lastModified": 1788316369,
-        "narHash": "sha256-74SXWtSoOq/bhRtzc+4l2d9pXtekMRD7tJV5LgXg4uU=",
+        "lastModified": 1788337582,
+        "narHash": "sha256-0fUW2qXWr1EhN/kmGlF4i16OG+65v5RAWpxtVvf0mk8=",
         "owner": "no-markup-markup",
         "repo": "nmm",
-        "rev": "57e1c7c5aeb85f17344ee217364d276228192700",
+        "rev": "122f1e9a5b1a03835ae044137f52ff9fe7e50622",
         "type": "github"
       },
       "original": {
